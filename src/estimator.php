@@ -39,8 +39,8 @@ function covid19ImpactEstimator($data)
     $severImpact->casesForVentilatorsByRequestedTime = $severImpact->infectionsByRequestedTime * (2 / 100);
 
     // dollarsInFlight
-    $impact->dollarsInFlight = $impact->infectionsByRequestedTime * $input->region->avgDailyIncomeInUSD * $input->region->avgDailyIncomePopulation;
-    $severImpact->dollarsInFlight = $severImpact->infectionsByRequestedTime * $input->region->avgDailyIncomeInUSD * $input->region->avgDailyIncomePopulation;
+    $impact->dollarsInFlight = $impact->infectionsByRequestedTime * $input->region->avgDailyIncomeInUSD * $input->region->avgDailyIncomePopulation * $duration;
+    $severImpact->dollarsInFlight = $severImpact->infectionsByRequestedTime * $input->region->avgDailyIncomeInUSD * $input->region->avgDailyIncomePopulation * $duration;
 
     $output->data = $input; // the input data you got
     $output->impact = $impact; // your best case estimation
@@ -72,19 +72,7 @@ function normaliseDuration($periodType, $timeToElapse)
     return $days;
 }
 
-/*
-$data = '{
-    "region": {
-        "name": "Africa",
-        "avgAge": 19.7,
-        "avgDailyIncomeInUSD": 5,
-        "avgDailyIncomePopulation": 0.71
-    },
-    "periodType": "days",
-    "timeToElapse": 58,
-    "reportedCases": 674,
-    "population": 66622705,
-    "totalHospitalBeds": 1380614
-}';
+
+/*$data = '{"region":{"name":"Africa","avgAge":19.7,"avgDailyIncomeInUSD":6,"avgDailyIncomePopulation":0.86},"periodType":"days","timeToElapse":12,"reportedCases":3339,"population":44508591,"totalHospitalBeds":1545034}';
 
 echo(covid19ImpactEstimator($data));*/
