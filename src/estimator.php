@@ -72,7 +72,7 @@ function normaliseDuration($periodType, $timeToElapse)
     return $days;
 }
 
-
+/*
 $data = '{
     "region": {
         "name": "Africa",
@@ -87,4 +87,4 @@ $data = '{
     "totalHospitalBeds": 1380614
 }';
 
-echo(covid19ImpactEstimator($data));
+echo(covid19ImpactEstimator($data));*/
