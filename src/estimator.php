@@ -52,7 +52,7 @@ function covid19ImpactEstimator($data)
     $output->data = $input; // the input data you got
     $output->impact = $impact; // your best case estimation
     $output->severeImpact = $severImpact; // your severe case estimation
-    return (array) $output;
+    return object_to_array($output);
 }
 
 function normaliseDuration($periodType, $timeToElapse)
@@ -86,6 +86,19 @@ function array_to_object($array) {
                 $obj->{$k} = array_to_object($v); //RECURSION
             } else {
                 $obj->{$k} = $v;
+            }
+        }
+    }
+    return $obj;
+}
+function object_to_array($array) {
+    $obj = [];
+    foreach($array as $k => $v) {
+        if(strlen($k)) {
+            if(is_object($v)) {
+                $obj[$k] = object_to_array($v); //RECURSION
+            } else {
+                $obj[$k] = $v;
             }
         }
     }
