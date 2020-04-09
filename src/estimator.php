@@ -24,30 +24,30 @@ function covid19ImpactEstimator($data)
     // Calculate infectionsByRequestedTime
     $duration = normaliseDuration($input->periodType, $input->timeToElapse);
     $factor = intval(($duration / 3));
-    $impact->infectionsByRequestedTime = $impact->currentlyInfected * (pow(2, $factor));
-    $severImpact->infectionsByRequestedTime = $severImpact->currentlyInfected * (pow(2, $factor));
+    $impact->infectionsByRequestedTime = intval( $impact->currentlyInfected * (pow(2, $factor)));
+    $severImpact->infectionsByRequestedTime = intval( $severImpact->currentlyInfected * (pow(2, $factor)));
 
     // Challenge 2
     // Calculate severeCasesByRequestedTime
-    $impact->severeCasesByRequestedTime = $impact->infectionsByRequestedTime * (15 / 100);
-    $severImpact->severeCasesByRequestedTime = $severImpact->infectionsByRequestedTime * (15 / 100);
+    $impact->severeCasesByRequestedTime =  intval($impact->infectionsByRequestedTime * (15 / 100));
+    $severImpact->severeCasesByRequestedTime = intval($severImpact->infectionsByRequestedTime * (15 / 100));
 
     // Calculate hospitalBedsByRequestedTime
     $availableBed = $input->totalHospitalBeds * (35 / 100);
-    $impact->hospitalBedsByRequestedTime = $availableBed - $impact->severeCasesByRequestedTime;
-    $severImpact->hospitalBedsByRequestedTime = $availableBed - $severImpact->severeCasesByRequestedTime;
+    $impact->hospitalBedsByRequestedTime = intval( $availableBed - $impact->severeCasesByRequestedTime);
+    $severImpact->hospitalBedsByRequestedTime = intval($availableBed - $severImpact->severeCasesByRequestedTime);
 
     // Challenge 3
-    $impact->casesForICUByRequestedTime = $impact->infectionsByRequestedTime * (5 / 100);
-    $severImpact->casesForICUByRequestedTime = $severImpact->infectionsByRequestedTime * (5 / 100);
+    $impact->casesForICUByRequestedTime = intval($impact->infectionsByRequestedTime * (5 / 100));
+    $severImpact->casesForICUByRequestedTime = intval($severImpact->infectionsByRequestedTime * (5 / 100));
 
     //  casesForVentilatorsByRequestedTime
-    $impact->casesForVentilatorsByRequestedTime = $impact->infectionsByRequestedTime * (2 / 100);
-    $severImpact->casesForVentilatorsByRequestedTime = $severImpact->infectionsByRequestedTime * (2 / 100);
+    $impact->casesForVentilatorsByRequestedTime = intval($impact->infectionsByRequestedTime * (2 / 100));
+    $severImpact->casesForVentilatorsByRequestedTime = intval($severImpact->infectionsByRequestedTime * (2 / 100));
 
     // dollarsInFlight
-    $impact->dollarsInFlight = $impact->infectionsByRequestedTime * $input->region->avgDailyIncomeInUSD * $input->region->avgDailyIncomePopulation * $duration;
-    $severImpact->dollarsInFlight = $severImpact->infectionsByRequestedTime * $input->region->avgDailyIncomeInUSD * $input->region->avgDailyIncomePopulation * $duration;
+    $impact->dollarsInFlight =  number_format((float)( $impact->infectionsByRequestedTime * $input->region->avgDailyIncomeInUSD * $input->region->avgDailyIncomePopulation * $duration), 2, '.', '');
+    $severImpact->dollarsInFlight = number_format((float)($severImpact->infectionsByRequestedTime * $input->region->avgDailyIncomeInUSD * $input->region->avgDailyIncomePopulation * $duration), 2, '.', '');
 
     $output->data = $input; // the input data you got
     $output->impact = $impact; // your best case estimation
