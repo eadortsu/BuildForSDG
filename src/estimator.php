@@ -23,7 +23,7 @@ function covid19ImpactEstimator($data)
 
     // Calculate infectionsByRequestedTime
     $duration = normaliseDuration($input->periodType, $input->timeToElapse);
-    $factor = ceil($duration / 3);
+    $factor = intval(($duration / 3));
     $impact->infectionsByRequestedTime = $impact->currentlyInfected * (pow(2, $factor));
     $severImpact->infectionsByRequestedTime = $severImpact->currentlyInfected * (pow(2, $factor));
 
