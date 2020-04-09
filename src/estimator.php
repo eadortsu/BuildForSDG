@@ -3,11 +3,11 @@
 function covid19ImpactEstimator($data)
 {
 
-    if(is_array($data)) {
+    if (is_array($data)) {
         $input = array_to_object($data);
-    }elseif( is_string($data)){
+    } elseif (is_string($data)) {
         $input = json_decode($data);
-    }else{
+    } else {
         $input = $data;
     }
     $impact = new stdClass();
@@ -24,17 +24,17 @@ function covid19ImpactEstimator($data)
     // Calculate infectionsByRequestedTime
     $duration = normaliseDuration($input->periodType, $input->timeToElapse);
     $factor = intval(($duration / 3));
-    $impact->infectionsByRequestedTime = intval( $impact->currentlyInfected * (pow(2, $factor)));
-    $severImpact->infectionsByRequestedTime = intval( $severImpact->currentlyInfected * (pow(2, $factor)));
+    $impact->infectionsByRequestedTime = intval($impact->currentlyInfected * (pow(2, $factor)));
+    $severImpact->infectionsByRequestedTime = intval($severImpact->currentlyInfected * (pow(2, $factor)));
 
     // Challenge 2
     // Calculate severeCasesByRequestedTime
-    $impact->severeCasesByRequestedTime =  intval($impact->infectionsByRequestedTime * (15 / 100));
+    $impact->severeCasesByRequestedTime = intval($impact->infectionsByRequestedTime * (15 / 100));
     $severImpact->severeCasesByRequestedTime = intval($severImpact->infectionsByRequestedTime * (15 / 100));
 
     // Calculate hospitalBedsByRequestedTime
     $availableBed = $input->totalHospitalBeds * (35 / 100);
-    $impact->hospitalBedsByRequestedTime = intval( $availableBed - $impact->severeCasesByRequestedTime);
+    $impact->hospitalBedsByRequestedTime = intval($availableBed - $impact->severeCasesByRequestedTime);
     $severImpact->hospitalBedsByRequestedTime = intval($availableBed - $severImpact->severeCasesByRequestedTime);
 
     // Challenge 3
@@ -46,8 +46,8 @@ function covid19ImpactEstimator($data)
     $severImpact->casesForVentilatorsByRequestedTime = intval($severImpact->infectionsByRequestedTime * (2 / 100));
 
     // dollarsInFlight
-    $impact->dollarsInFlight =   $impact->infectionsByRequestedTime * $input->region->avgDailyIncomeInUSD * $input->region->avgDailyIncomePopulation * $duration;
-    $severImpact->dollarsInFlight = $severImpact->infectionsByRequestedTime * $input->region->avgDailyIncomeInUSD * $input->region->avgDailyIncomePopulation * $duration;
+    $impact->dollarsInFlight = $impact->infectionsByRequestedTime * $input->region->avgDailyIncomePopulation * $input->region->avgDailyIncomeInUSD * $duration;
+    $severImpact->dollarsInFlight = $severImpact->infectionsByRequestedTime * $input->region->avgDailyIncomePopulation * $input->region->avgDailyIncomeInUSD * $duration;
 
     $output->data = $input; // the input data you got
     $output->impact = $impact; // your best case estimation
@@ -78,11 +78,13 @@ function normaliseDuration($periodType, $timeToElapse)
 
     return $days;
 }
-function array_to_object($array) {
+
+function array_to_object($array)
+{
     $obj = new stdClass;
-    foreach($array as $k => $v) {
-        if(strlen($k)) {
-            if(is_array($v)) {
+    foreach ($array as $k => $v) {
+        if (strlen($k)) {
+            if (is_array($v)) {
                 $obj->{$k} = array_to_object($v); //RECURSION
             } else {
                 $obj->{$k} = $v;
@@ -91,11 +93,13 @@ function array_to_object($array) {
     }
     return $obj;
 }
-function object_to_array($array) {
+
+function object_to_array($array)
+{
     $obj = [];
-    foreach($array as $k => $v) {
-        if(strlen($k)) {
-            if(is_object($v)) {
+    foreach ($array as $k => $v) {
+        if (strlen($k)) {
+            if (is_object($v)) {
                 $obj[$k] = object_to_array($v); //RECURSION
             } else {
                 $obj[$k] = $v;
