@@ -2,7 +2,7 @@
 
 function covid19ImpactEstimator($data)
 {
-    $input = json_decode($data);
+    $input = (object)$data;
     $impact = new stdClass();
     $severImpact = new stdClass();
     $output = new stdClass();
@@ -73,6 +73,6 @@ function normaliseDuration($periodType, $timeToElapse)
 }
 
 
-/*$data = '{"region":{"name":"Africa","avgAge":19.7,"avgDailyIncomeInUSD":6,"avgDailyIncomePopulation":0.86},"periodType":"days","timeToElapse":12,"reportedCases":3339,"population":44508591,"totalHospitalBeds":1545034}';
+$data = '{"region":{"name":"Africa","avgAge":19.7,"avgDailyIncomeInUSD":6,"avgDailyIncomePopulation":0.86},"periodType":"days","timeToElapse":12,"reportedCases":3339,"population":44508591,"totalHospitalBeds":1545034}';
 
-echo(covid19ImpactEstimator($data));*/
+echo(covid19ImpactEstimator($data));
