@@ -23,7 +23,7 @@ function covid19ImpactEstimator($data)
 
     // Calculate infectionsByRequestedTime
     $duration = normaliseDuration($input->periodType, $input->timeToElapse);
-    $factor = intval($duration / 3);
+    $factor = ceil($duration / 3);
     $impact->infectionsByRequestedTime = $impact->currentlyInfected * (pow(2, $factor));
     $severImpact->infectionsByRequestedTime = $severImpact->currentlyInfected * (pow(2, $factor));
 
@@ -105,9 +105,9 @@ function object_to_array($array) {
     return $obj;
 }
 
-/*$data = '{"region":{"name":"Africa","avgAge":19.7,"avgDailyIncomeInUSD":6,"avgDailyIncomePopulation":0.86},"periodType":"days","timeToElapse":12,"reportedCases":3339,"population":44508591,"totalHospitalBeds":1545034}';
+$data = '{"region":{"name":"Africa","avgAge":19.7,"avgDailyIncomeInUSD":6,"avgDailyIncomePopulation":0.86},"periodType":"days","timeToElapse":12,"reportedCases":3339,"population":44508591,"totalHospitalBeds":1545034}';
 
-echo(covid19ImpactEstimator([
+print_r(covid19ImpactEstimator([
     "region" => [
         "name" => "Africa",
         "avgAge" => 19.7,
@@ -122,4 +122,4 @@ echo(covid19ImpactEstimator([
 ]));
 
 
-echo (covid19ImpactEstimator($data));*/
+print_r(covid19ImpactEstimator($data));
