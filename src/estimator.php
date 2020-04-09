@@ -46,8 +46,8 @@ function covid19ImpactEstimator($data)
     $severImpact->casesForVentilatorsByRequestedTime = intval($severImpact->infectionsByRequestedTime * (2 / 100));
 
     // dollarsInFlight
-    $impact->dollarsInFlight =  number_format((float)( $impact->infectionsByRequestedTime * $input->region->avgDailyIncomeInUSD * $input->region->avgDailyIncomePopulation * $duration), 2, '.', '');
-    $severImpact->dollarsInFlight = number_format((float)($severImpact->infectionsByRequestedTime * $input->region->avgDailyIncomeInUSD * $input->region->avgDailyIncomePopulation * $duration), 2, '.', '');
+    $impact->dollarsInFlight =   $impact->infectionsByRequestedTime * $input->region->avgDailyIncomeInUSD * $input->region->avgDailyIncomePopulation * $duration;
+    $severImpact->dollarsInFlight = $severImpact->infectionsByRequestedTime * $input->region->avgDailyIncomeInUSD * $input->region->avgDailyIncomePopulation * $duration;
 
     $output->data = $input; // the input data you got
     $output->impact = $impact; // your best case estimation
