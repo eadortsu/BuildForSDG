@@ -104,7 +104,7 @@ function object_to_array($array) {
     }
     return $obj;
 }
-
+/*
 $data = '{"region":{"name":"Africa","avgAge":19.7,"avgDailyIncomeInUSD":6,"avgDailyIncomePopulation":0.86},"periodType":"days","timeToElapse":12,"reportedCases":3339,"population":44508591,"totalHospitalBeds":1545034}';
 
 print_r(covid19ImpactEstimator([
@@ -122,4 +122,4 @@ print_r(covid19ImpactEstimator([
 ]));
 
 
-print_r(covid19ImpactEstimator($data));
+print_r(covid19ImpactEstimator($data));*/
