@@ -2,7 +2,14 @@
 
 function covid19ImpactEstimator($data)
 {
-    $input = (object)$data;
+
+    if(is_array($data)) {
+        $input = array_to_object($data);
+    }elseif( is_string($data)){
+        $input = json_decode($data);
+    }else{
+        $input = $data;
+    }
     $impact = new stdClass();
     $severImpact = new stdClass();
     $output = new stdClass();
@@ -71,8 +78,35 @@ function normaliseDuration($periodType, $timeToElapse)
 
     return $days;
 }
+function array_to_object($array) {
+    $obj = new stdClass;
+    foreach($array as $k => $v) {
+        if(strlen($k)) {
+            if(is_array($v)) {
+                $obj->{$k} = array_to_object($v); //RECURSION
+            } else {
+                $obj->{$k} = $v;
+            }
+        }
+    }
+    return $obj;
+}
+
+/*$data = '{"region":{"name":"Africa","avgAge":19.7,"avgDailyIncomeInUSD":6,"avgDailyIncomePopulation":0.86},"periodType":"days","timeToElapse":12,"reportedCases":3339,"population":44508591,"totalHospitalBeds":1545034}';
+
+echo(covid19ImpactEstimator([
+    "region" => [
+        "name" => "Africa",
+        "avgAge" => 19.7,
+        "avgDailyIncomeInUSD" => 5,
+        "avgDailyIncomePopulation" => 0.71
+    ],
+    "periodType" => "days",
+    "timeToElapse" => 30,
+    "reportedCases" => 674,
+    "population" => 66622705,
+    "totalHospitalBeds" => 1380614
+]));
 
 
-$data = '{"region":{"name":"Africa","avgAge":19.7,"avgDailyIncomeInUSD":6,"avgDailyIncomePopulation":0.86},"periodType":"days","timeToElapse":12,"reportedCases":3339,"population":44508591,"totalHospitalBeds":1545034}';
-
-echo(covid19ImpactEstimator($data));
+echo (covid19ImpactEstimator($data));*/
