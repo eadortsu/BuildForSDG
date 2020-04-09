@@ -52,7 +52,7 @@ function covid19ImpactEstimator($data)
     $output->data = $input; // the input data you got
     $output->impact = $impact; // your best case estimation
     $output->severeImpact = $severImpact; // your severe case estimation
-    return json_encode($output);
+    return $output;
 }
 
 function normaliseDuration($periodType, $timeToElapse)
