@@ -46,8 +46,8 @@ function covid19ImpactEstimator($data)
     $severImpact->casesForVentilatorsByRequestedTime = intval($severImpact->infectionsByRequestedTime * (2 / 100));
 
     // dollarsInFlight
-    $impact->dollarsInFlight = round( $impact->infectionsByRequestedTime * $input->region->avgDailyIncomePopulation * $input->region->avgDailyIncomeInUSD * $duration,2);
-    $severImpact->dollarsInFlight = round( $severImpact->infectionsByRequestedTime * $input->region->avgDailyIncomePopulation * $input->region->avgDailyIncomeInUSD * $duration,2);
+    $impact->dollarsInFlight =  $impact->infectionsByRequestedTime * $input->region->avgDailyIncomePopulation * $input->region->avgDailyIncomeInUSD * $duration;
+    $severImpact->dollarsInFlight = $severImpact->infectionsByRequestedTime * $input->region->avgDailyIncomePopulation * $input->region->avgDailyIncomeInUSD * $duration;
 
     $output->data = $input; // the input data you got
     $output->impact = $impact; // your best case estimation
@@ -108,10 +108,10 @@ function object_to_array($array)
     }
     return $obj;
 }
-/*
-$data = '{"region":{"name":"Africa","avgAge":19.7,"avgDailyIncomeInUSD":6,"avgDailyIncomePopulation":0.86},"periodType":"days","timeToElapse":12,"reportedCases":3339,"population":44508591,"totalHospitalBeds":1545034}';
 
-print_r(covid19ImpactEstimator([
+$data = '{"region":{"name":"Africa","avgAge":19.7,"avgDailyIncomeInUSD":3,"avgDailyIncomePopulation":0.63},"periodType":"days","timeToElapse":18,"reportedCases":200,"population":4199209,"totalHospitalBeds":234434}';
+
+/*print_r(covid19ImpactEstimator([
     "region" => [
         "name" => "Africa",
         "avgAge" => 19.7,
@@ -123,7 +123,7 @@ print_r(covid19ImpactEstimator([
     "reportedCases" => 674,
     "population" => 66622705,
     "totalHospitalBeds" => 1380614
-]));
+]));*/
 
 
-print_r(covid19ImpactEstimator($data));*/
+print_r(covid19ImpactEstimator($data));
