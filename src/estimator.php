@@ -46,8 +46,8 @@ function covid19ImpactEstimator($data)
     $severImpact->casesForVentilatorsByRequestedTime = intval($severImpact->infectionsByRequestedTime * (2 / 100));
 
     // dollarsInFlight
-    $impact->dollarsInFlight =  $impact->infectionsByRequestedTime * $input->region->avgDailyIncomePopulation * $input->region->avgDailyIncomeInUSD * $duration;
-    $severImpact->dollarsInFlight = $severImpact->infectionsByRequestedTime * $input->region->avgDailyIncomePopulation * $input->region->avgDailyIncomeInUSD * $duration;
+    $impact->dollarsInFlight = intval(($impact->infectionsByRequestedTime * $input->region->avgDailyIncomePopulation * $input->region->avgDailyIncomeInUSD) / $duration);
+    $severImpact->dollarsInFlight = intval(($severImpact->infectionsByRequestedTime * $input->region->avgDailyIncomePopulation * $input->region->avgDailyIncomeInUSD) / $duration);
 
     $output->data = $input; // the input data you got
     $output->impact = $impact; // your best case estimation
@@ -108,22 +108,22 @@ function object_to_array($array)
     }
     return $obj;
 }
-
-$data = '{"region":{"name":"Africa","avgAge":19.7,"avgDailyIncomeInUSD":3,"avgDailyIncomePopulation":0.63},"periodType":"days","timeToElapse":18,"reportedCases":200,"population":4199209,"totalHospitalBeds":234434}';
-
-/*print_r(covid19ImpactEstimator([
-    "region" => [
-        "name" => "Africa",
-        "avgAge" => 19.7,
-        "avgDailyIncomeInUSD" => 5,
-        "avgDailyIncomePopulation" => 0.71
-    ],
-    "periodType" => "days",
-    "timeToElapse" => 30,
-    "reportedCases" => 674,
-    "population" => 66622705,
-    "totalHospitalBeds" => 1380614
-]));*/
-
-
-print_r(covid19ImpactEstimator($data));
+//
+//$data = '{"region":{"name":"Africa","avgAge":19.7,"avgDailyIncomeInUSD":3,"avgDailyIncomePopulation":0.63},"periodType":"days","timeToElapse":18,"reportedCases":200,"population":4199209,"totalHospitalBeds":234434}';
+//
+///*print_r(covid19ImpactEstimator([
+//    "region" => [
+//        "name" => "Africa",
+//        "avgAge" => 19.7,
+//        "avgDailyIncomeInUSD" => 5,
+//        "avgDailyIncomePopulation" => 0.71
+//    ],
+//    "periodType" => "days",
+//    "timeToElapse" => 30,
+//    "reportedCases" => 674,
+//    "population" => 66622705,
+//    "totalHospitalBeds" => 1380614
+//]));*/
+//
+//
+//print_r(covid19ImpactEstimator($data));
