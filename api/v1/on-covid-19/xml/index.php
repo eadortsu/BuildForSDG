@@ -1,7 +1,4 @@
 <?php
-require_once('../../../../src/estimator.php');
-
-
 header("Access-Control-Allow-Origin: *");
 header('Content-Type: application/xhtml+xml');
 header("Access-Control-Allow-Methods: POST");
@@ -19,9 +16,9 @@ $input = (array)json_decode(file_get_contents('php://input'), TRUE);
     exit();
 }*/
 
-if (!validatePerson($input)) {
+/*if (!validatePerson($input)) {
     return unprocessableEntityResponse();
-}
+}*/
 
 header('HTTP/1.1 200 Ok');
 
