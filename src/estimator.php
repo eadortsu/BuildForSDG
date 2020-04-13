@@ -108,6 +108,59 @@ function object_to_array($array)
     }
     return $obj;
 }
+
+function unprocessableEntityResponse()
+{
+   header( 'HTTP/1.1 422 Unprocessable Entity');
+   echo json_encode([
+        'error' => 'Invalid input'
+    ]);
+
+}
+
+function notFoundResponse()
+{
+    $response['status_code_header'] = 'HTTP/1.1 404 Not Found';
+    $response['body'] = null;
+    return $response;
+}
+
+function validatePerson($input)
+{
+    if (!isset($input['region'])) {
+        return false;
+    }
+    if (!isset($input['region']['name'])) {
+        return false;
+    }
+    if (!isset($input['region']['avgDailyIncomeInUSD'])) {
+        return false;
+    }
+
+     if (!isset($input['region']['avgDailyIncomePopulation'])) {
+        return false;
+    }
+
+    if (!isset($input['periodType'])) {
+        return false;
+    }
+    if (!isset($input['timeToElapse'])) {
+        return false;
+    }
+    if (!isset($input['reportedCases'])) {
+        return false;
+    }
+    if (!isset($input['population'])) {
+        return false;
+    }
+    if (!isset($input['totalHospitalBeds'])) {
+        return false;
+    }
+    return true;
+}
+
+
+
 //
 //$data = '{"region":{"name":"Africa","avgAge":19.7,"avgDailyIncomeInUSD":3,"avgDailyIncomePopulation":0.63},"periodType":"days","timeToElapse":18,"reportedCases":200,"population":4199209,"totalHospitalBeds":234434}';
 //
