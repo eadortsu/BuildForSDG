@@ -1,7 +1,4 @@
 <?php
-require_once('../../../../src/estimator.php');
-
-
 header("Access-Control-Allow-Origin: *");
 header('Content-Type: application/xhtml+xml');
 header("Access-Control-Allow-Methods: POST");
