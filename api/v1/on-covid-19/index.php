@@ -6,6 +6,7 @@ header("Access-Control-Allow-Methods: POST");
 header("Access-Control-Max-Age: 3600");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 require_once('../../../src/estimator.php');
+require_once('../../../src/functions.php');
 
 
 $input = (array)json_decode(file_get_contents('php://input'), TRUE);
@@ -23,3 +24,13 @@ if (!validatePerson($input)) {
 
 header('HTTP/1.1 200 Ok');
 echo json_encode(covid19ImpactEstimator($input));
+
+$log = insert('logs',[
+    'method' => $_SERVER["REQUEST_METHOD"],
+    'path' => '/api/v1/on-covid-19',
+    'status' => $_SERVER['REDIRECT_STATUS'],
+    'time' => time() - $_SERVER['REQUEST_TIME_FLOAT']
+
+]);
+
+echo $log;

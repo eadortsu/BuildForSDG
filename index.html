@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="apple-mobile-web-app-title" content="Covid Estimator">
+    <meta name="description" content="An app to feed the estimator function">
+    <meta name="theme-color" content="rgb(25, 28, 70)"/>
+    <link rel="apple-touch-icon" href="src/images/icon-152x152.png">
+    <title>Covid 19 Estimator Challenge</title>
+    <link rel="manifest" href="manifest.json">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center jumbotron bg-transparent col-md-7">Fill out the form below</h1>
+
+
+    <div class="row justify-content-center">
+
+        <div class="card col-md-7">
+            <form action="estimate.php" method="post">
+                <div class="form-group">
+                    <label for="population">Enter the total population</label>
+                    <input type="number" data-population name="population" id="population" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="timeToElapse">Enter the Time to Elapse</label>
+                    <input type="number" data-time-to-elapse name="timeToElapse" id="timeToElapse" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="reportedCases">Enter Number of reported cases</label>
+                    <input type="number" data-reported-cases name="reportedCases" id="reportedCases"
+                           class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="totalHospitalBeds">Enter the total Hospital Beds</label>
+                    <input type="number" data-total-hospital-beds name="totalHospitalBeds" id="totalHospitalBeds"
+                           class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="periodType">Choose Period Type</label>
+                    <select name="periodType" id="periodType" class="form-control" data-period-type>
+                        <option value="days">Days</option>
+                        <option value="weeks">Weeks</option>
+                        <option value="months">Months</option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-outline-primary col-md-5" name="submit" data-go-estimate>Submit
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+    <script>
+        //regisering the service worker
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('service-worker.js')
+                    .then((reg) => {
+                        console.log('Service worker registered.', reg);
+                    });
+            });
+        }
+    </script>
+
+</body>
+
+
+</html>

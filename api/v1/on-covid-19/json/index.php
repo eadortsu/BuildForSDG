@@ -17,9 +17,9 @@ $input = (array)json_decode(file_get_contents('php://input'), TRUE);
     exit();
 }*/
 
-/*if (!validatePerson($input)) {
+if (!validatePerson($input)) {
     return unprocessableEntityResponse();
-}*/
+}
 
 header('HTTP/1.1 200 Ok');
 echo json_encode(covid19ImpactEstimator($input));
